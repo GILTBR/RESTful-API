@@ -5,7 +5,8 @@ blueprint = Blueprint('api', __name__)
 api = Api(blueprint, version='1.0', title='RESTful API with Flask, Flask-RESTx and SQLAlchemy', contact='Gil Tober',
           contact_email='giltober@gmail.com', doc='/docs')
 
-from .CustomersApi import ns as ns1, CustomersApi
+from .CustomersApi import ns as ns1, CustomersApi, CustomerApi
 
 api.add_namespace(ns1, path='/api')
 ns1.add_resource(CustomersApi, '/Customers')
+ns1.add_resource(CustomerApi, '/Customer/<int:c_id>')

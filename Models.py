@@ -5,12 +5,12 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import CreateSchema
 
-# from db import engine
+from db import engine
 
 Base = declarative_base()
 
-# if not engine.dialect.has_schema(engine, 'rest_api'):
-#     engine.execute(CreateSchema('rest_api'))
+if not engine.dialect.has_schema(engine, 'rest_api'):
+    engine.execute(CreateSchema('rest_api'))
 
 
 class Traces(Base):
@@ -52,6 +52,5 @@ class Items(Base):
     __table_args__ = {"schema": 'rest_api'}
 
     id = Column(Integer, Sequence('customer_id_seq'), primary_key=True)
-
 
 # Base.metadata.create_all(engine)

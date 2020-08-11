@@ -1,4 +1,4 @@
-###### RESTful APIs app with Flask and SQLAlchemy ORM
+#### RESTful APIs app with Flask and SQLAlchemy ORM
 
 Experimenting with creating a RESTful APIs app 
 using the Flask micro-framework and SQLAlchemy
@@ -26,4 +26,4 @@ In the repo, you can find a .env(template) file with a template to the configura
  [SQLAlchemy](https://www.sqlalchemy.org/) <br>
  [Flask](https://flask.palletsprojects.com/) <br>
  [dotenv](https://pypi.org/project/python-dotenv/) <br>
- [Flask RESTPlus](https://flask-restplus.readthedocs.io/)
+ [Flask RESTX](https://flask-restx.readthedocs.io/)
