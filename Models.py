@@ -1,6 +1,6 @@
 from datetime import datetime as dt
 
-from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -50,8 +50,12 @@ class Orders(Base):
     __table_args__ = {'schema': 'rest_api'}
 
     id = Column(Integer, Sequence('customer_id_seq'), primary_key=True)
-    customer_id = Column(Integer, ForeignKey('rest_api.customers.id'))
+    customer_id = Column(Integer, ForeignKey('rest_api.customers.id'), primary_key=True)
+    item_id = Column(Integer, ForeignKey('rest_api.items.id'), primary_key=True)
+    quantity = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
     created_at = Column(DateTime, default=dt.now())
+    items = relationship('Items')
 
 
 class Items(Base):
@@ -61,5 +65,6 @@ class Items(Base):
     __table_args__ = {"schema": 'rest_api'}
 
     id = Column(Integer, Sequence('customer_id_seq'), primary_key=True)
+    name = Column(String, nullable=False, unique=True)
 
 # Base.metadata.create_all(engine)
