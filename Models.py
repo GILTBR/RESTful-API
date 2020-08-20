@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 
 # from sqlalchemy.schema import CreateSchema
 
-# from db import engine
+from db import engine
 
 Base = declarative_base()
 
@@ -49,13 +49,10 @@ class Orders(Base):
     __tablename__ = 'orders'
     __table_args__ = {'schema': 'rest_api'}
 
-    id = Column(Integer, Sequence('customer_id_seq'), primary_key=True)
-    customer_id = Column(Integer, ForeignKey('rest_api.customers.id'), primary_key=True)
-    item_id = Column(Integer, ForeignKey('rest_api.items.id'), primary_key=True)
-    quantity = Column(Integer, nullable=False)
-    price = Column(Float, nullable=False)
+    id = Column(Integer, Sequence('orders_id_seq'), primary_key=True, unique=True)
+    customer_id = Column(Integer, ForeignKey('rest_api.customers.id'), primary_key=True, unique=True)
     created_at = Column(DateTime, default=dt.now())
-    items = relationship('Items')
+    order_details = relationship('OrderDetails')
 
 
 class Items(Base):
@@ -64,7 +61,19 @@ class Items(Base):
     __tablename__ = 'items'
     __table_args__ = {"schema": 'rest_api'}
 
-    id = Column(Integer, Sequence('customer_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('item_id_seq'), primary_key=True)
     name = Column(String, nullable=False, unique=True)
 
-# Base.metadata.create_all(engine)
+
+class OrderDetails(Base):
+    # TODO create docstring
+    __tablename__ = 'order_details'
+    __table_args__ = {'schema': 'rest_api'}
+
+    order_id = Column(Integer, ForeignKey('rest_api.orders.id'), primary_key=True)
+    item_id = Column(Integer, ForeignKey('rest_api.items.id'), primary_key=True)
+    quantity = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
+
+
+Base.metadata.create_all(engine, )
